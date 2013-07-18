@@ -1,0 +1,23 @@
+{% if this.getCurrentPage > this.getFirstPage %}
+    <a class="prev_page" href="?page={{ this.getCurrentPage - 1 }}" title="Предыдущая страница">&lt;&lt;</a> 
+    <span>...</span> 
+    {% if this.getStartPage > this.getFirstPage %}
+        <a class="first_page" href="?page={{ this.getFirstPage }}" title="Первая страница">{{ this.getFirstPage }}</a> 
+        <span>...</span> 
+    {% endif %}
+{% endif %}
+{% for i in this.getStartPage..this.getEndPage %}
+    {% if this.getCurrentPage == i %}
+        <span class="current_page" title="Текущая страница">{{ i }}</span> 
+    {% else %}
+        <a class="page_{{ i }}" href="?page={{ i }}" title="Страница {{ i }}">{{ i }}</a> 
+    {% endif %}
+{% endfor %}
+{% if this.getCurrentPage < this.getLastPage %}
+    {% if this.getEndPage < this.getLastPage %}
+        <span>...</span> 
+        <a class="last_page" href="?page={{ this.getLastPage }}" title="Последняя страница">{{ this.getLastPage }}</a> 
+    {% endif %}
+    <span>...</span> 
+    <a class="next_page" href="?page={{ this.getCurrentPage + 1 }}" title="Следующая страница">&gt;&gt;</a> 
+{% endif %}

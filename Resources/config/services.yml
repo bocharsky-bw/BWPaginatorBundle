@@ -1,0 +1,11 @@
+parameters:
+#    bw_paginator.example.class: BW\PaginatorBundle\Example
+
+services:
+#    bw_paginator.example:
+#        class: %bw_paginator.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    bw_paginator:
+        class:        BW\PaginatorBundle\Service\Paginator
+        arguments:    ["@twig"]
