@@ -82,17 +82,23 @@ class Paginator
      * Конструктор для пагинатора
      * @param \Twig_Environment $twig
      */
-    public function __construct(\Twig_Environment $twig) {
+    public function __construct(\Twig_Environment $twig, $linkCount = 9, $rowCount = 5) {
         $this->twig = $twig;
+        $this->setLinkCount($linkCount);
+        $this->setRowCount($rowCount);
     }
     
     
-    public function _initialize($allRowCount, $currentPage = 1, $linkCount = 9, $rowCount = 5) {
+    public function _initialize($allRowCount, $currentPage = 1, $linkCount = NULL, $rowCount = NULL) {
         $this->setAllRowCount($allRowCount);
         $this->setFirstPage();
         $this->setCurrentPage($currentPage);
-        $this->setLinkCount($linkCount);
-        $this->setRowCount($rowCount);
+        if ( !is_null($linkCount) ) {
+            $this->setLinkCount($linkCount);
+        }
+        if ( !is_null($rowCount) ) {
+            $this->setRowCount($rowCount);
+        }
         $this->setLastPage();
         $this->setOffset();
         $this->setCycleRange();

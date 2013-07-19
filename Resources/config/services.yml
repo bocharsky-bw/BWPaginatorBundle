@@ -1,5 +1,7 @@
 parameters:
 #    bw_paginator.example.class: BW\PaginatorBundle\Example
+    bw_paginator.link_count:  9     # Количество ссылок в навигации
+    bw_paginator.row_count:   15    # Количество записей на странице
 
 services:
 #    bw_paginator.example:
@@ -8,4 +10,4 @@ services:
 
     bw_paginator:
         class:        BW\PaginatorBundle\Service\Paginator
-        arguments:    ["@twig"]
+        arguments:    ["@twig", %bw_paginator.link_count%, %bw_paginator.row_count%]
