@@ -21,7 +21,7 @@ class Paginator
      * Запрашиваемая страница
      * @var int
      */
-    private $currentCurrentPage;
+    private $currentPage;
     
     /**
      * Количество ссылок на страницы
@@ -81,12 +81,12 @@ class Paginator
     }
     
     
-    public function initialize($allRowCount, $currentCurrentPage = 1, $linkCount = 9, $rowCount = 5) {
+    public function initialize($allRowCount, $currentPage = 1, $linkCount = 9, $rowCount = 5) {
         $this->setAllRowCount($allRowCount);
-        $this->setCurrentPage($currentCurrentPage);
+        $this->setFirstPage();
+        $this->setCurrentPage($currentPage);
         $this->setLinkCount($linkCount);
         $this->setRowCount($rowCount);
-        $this->setFirstPage();
         $this->setLastPage();
         $this->setOffset();
         $this->setCycleRange();
@@ -102,13 +102,14 @@ class Paginator
         return $this->allRowCount;
     }
     
-    private function setCurrentPage($currentCurrentPage = 1) {
-        $currentCurrentPage = (int) $currentCurrentPage;
-        $this->currentCurrentPage = ( $currentCurrentPage > 0 ? $currentCurrentPage : $this->firstPage );
+    private function setCurrentPage($currentPage = 1) {
+        $currentPage = (int) $currentPage;
+        var_dump($currentPage);
+        $this->currentPage = ( $currentPage > 0 ? $currentPage : $this->firstPage );
     }
     public function getCurrentPage() {
         
-        return $this->currentCurrentPage;
+        return $this->currentPage;
     }
     
     private function setLinkCount($linkCount = 9) {
@@ -146,7 +147,7 @@ class Paginator
     }
     
     private function setOffset() {
-        $this->offset = (int) ( ($this->currentCurrentPage - 1) * $this->rowCount );
+        $this->offset = (int) ( ($this->currentPage - 1) * $this->rowCount );
     }
     public function getOffset() {
         
@@ -154,8 +155,8 @@ class Paginator
     }
     
     private function setCycleRange() {
-        $this->startPage = (int) floor( $this->currentCurrentPage - ($this->linkCount / 2) );
-        $this->endPage = (int) floor( $this->currentCurrentPage + ($this->linkCount / 2) );
+        $this->startPage = (int) floor( $this->currentPage - ($this->linkCount / 2) );
+        $this->endPage = (int) floor( $this->currentPage + ($this->linkCount / 2) );
         
         if ($this->startPage < $this->firstPage) {
             $this->startPage = $this->firstPage;
