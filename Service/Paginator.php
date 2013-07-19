@@ -81,7 +81,7 @@ class Paginator
     }
     
     
-    public function initialize($allRowCount, $currentPage = 1, $linkCount = 9, $rowCount = 5) {
+    public function _initialize($allRowCount, $currentPage = 1, $linkCount = 9, $rowCount = 5) {
         $this->setAllRowCount($allRowCount);
         $this->setFirstPage();
         $this->setCurrentPage($currentPage);
