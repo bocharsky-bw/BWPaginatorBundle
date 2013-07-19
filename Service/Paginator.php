@@ -30,10 +30,16 @@ class Paginator
     private $linkCount;
     
     /**
-     * Количество всех записей в таблице
+     * Реальное количество всех записей в таблице
      * @var int
      */
     private $allRowCount;
+    
+    /**
+     * Ожидаемое количество записей
+     * @var int
+     */
+    private $expectedRowCount;
     
     /**
      * Количество рядков, которые показываются на одной странице (параметр для LIMIT в SQL запросе)
@@ -154,15 +160,24 @@ class Paginator
     }
     
     private function setCycleRange() {
-        $this->startPage = (int) floor( $this->currentPage - ($this->linkCount / 2) );
-        $this->endPage = (int) floor( $this->currentPage + ($this->linkCount / 2) );
+        $this->expectedRowCount = (int) ( $this->rowCount * $this->linkCount );
         
-        if ($this->startPage < $this->firstPage) {
-            $this->startPage = $this->firstPage;
-            $this->endPage = $this->linkCount + 1;
-        } elseif ($this->endPage > $this->lastPage) {
-            $this->startPage = $this->lastPage - $this->linkCount;
-            $this->endPage = $this->lastPage;
+        if ( $this->allRowCount > $this->expectedRowCount ) {
+            // Полная навигация
+            $this->startPage = (int) floor( $this->currentPage - ($this->linkCount / 2) );
+            $this->endPage = (int) floor( $this->currentPage + ($this->linkCount / 2) );
+        
+            if ($this->startPage < $this->firstPage) {
+                $this->startPage = $this->firstPage;
+                $this->endPage = $this->linkCount + 1;
+            } elseif ($this->endPage > $this->lastPage) {
+                $this->startPage = $this->lastPage - $this->linkCount;
+                $this->endPage = $this->lastPage;
+            }
+        } else {
+            // Сокращенная навигация
+            $this->startPage = 1;
+            $this->endPage = (int) ceil( $this->allRowCount / $this->rowCount );
         }
     }
     public function getStartPage() {
