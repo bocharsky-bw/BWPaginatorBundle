@@ -11,7 +11,7 @@ Simple and Fast Pagination - Paginator Bundle for Symfony2
 
  1. Add manualy ```BW/PaginatorBundle``` to your ```src``` directory
 
- 2. Register the bundle in you AppKernel in the development section
+ 2. Register the bundle in you ```AppKernel``` in the production section
 
         // app/AppKernel.php
         public function registerBundles()
@@ -25,13 +25,13 @@ Simple and Fast Pagination - Paginator Bundle for Symfony2
             return $bundles;
         }
 
- 3. run the assets:install command to install the css and js files
+ 3. run the ```assets:install``` command to install the ```css``` and ```js``` files
 
         ./app/console assets:install web
 		
 ### Configuration example
 
-You can configure default query parameter names and templates
+You can configure default pagination parameters in configuration file
 ```yaml
 bw_paginator:
     #...
