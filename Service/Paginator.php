@@ -104,7 +104,6 @@ class Paginator
     
     private function setCurrentPage($currentPage = 1) {
         $currentPage = (int) $currentPage;
-        var_dump($currentPage);
         $this->currentPage = ( $currentPage > 0 ? $currentPage : $this->firstPage );
     }
     public function getCurrentPage() {
